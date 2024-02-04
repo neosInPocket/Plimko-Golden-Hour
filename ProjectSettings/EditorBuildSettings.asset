@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/EntryScene.unity
+    guid: 3fc8acdd13e6c734bafef6554d6fdbcd
+  - enabled: 1
+    path: Assets/Scenes/Level.unity
+    guid: 767df7ed5ee2d6340b7ceade9e05f82a
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer.unity
+    guid: e218d2b87afb9ac449a133d150029567
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 1.unity
+    guid: b62bab6301c3fc443bf30f19710f4483
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 2.unity
+    guid: acbce43b4a369d14ab5a0c992e368a57
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 3.unity
+    guid: 6c231aa464cf7c24fb50ad32ad00d050
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 4.unity
+    guid: 18e8ae6de58f1ed4b9cfdbdbf28f618f
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 5.unity
+    guid: 36b40c6830c27354a97af532a01036da
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 6.unity
+    guid: f7d107e124de2114ca59af1c026cb805
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 7.unity
+    guid: 6c7139fff857e4d4c97ef8c6168bc78c
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 8.unity
+    guid: 105536fa802469949840549851893d26
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 9.unity
+    guid: 04e786fc18c90cd4b9e64f16afb9130e
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 10.unity
+    guid: 237438434251aa34da9003f70bd295c8
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 11.unity
+    guid: 5cdf78af730641a4e8a2259fec7d60cb
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 12.unity
+    guid: f42800acfeffc6e4bb6ee43ba2a6014a
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 13.unity
+    guid: 3861e156c31edd840b65bf72518edf9a
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 14.unity
+    guid: c51e2c48605571148855bb56bceab01a
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 15.unity
+    guid: b244641c8230ef64e9ccb2a829e749ce
+  - enabled: 1
+    path: Assets/Scenes/KnifeSlicer 16.unity
+    guid: cdd6636f2e16b9f4891655cd04610daf
+  m_configObjects: {}
