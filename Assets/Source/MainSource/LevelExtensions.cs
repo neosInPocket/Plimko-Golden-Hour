@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class LevelExtensions
 {
-	public static Vector2 ScreenSize => WorldPoint(new Vector3(Screen.width, Screen.height));
+	public static Vector2 ScreenSize;
 
 	public static Vector3 WorldPoint(Vector2 screenPosition)
 	{
@@ -20,5 +20,10 @@ public static class LevelExtensions
 
 		Vector3 result = origin + magnitude * direction;
 		return result;
+	}
+
+	static LevelExtensions()
+	{
+		ScreenSize = WorldPoint(new Vector3(Screen.width, Screen.height));
 	}
 }

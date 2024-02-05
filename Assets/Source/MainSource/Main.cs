@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Main : MonoBehaviour
 {
 	[SerializeField] private BallsSpawner spawner;
+	[SerializeField] private BallShooter ballShooter;
 	[SerializeField] private List<Image> energy;
 	[SerializeField] private Image fill;
 	[SerializeField] private int addScore;
@@ -23,6 +24,7 @@ public class Main : MonoBehaviour
 	private void Start()
 	{
 		spawner.Spawning = true;
+		ballShooter.Enabled = true;
 
 
 		currentScore = 0;
