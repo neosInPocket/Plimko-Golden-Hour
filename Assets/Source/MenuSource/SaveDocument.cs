@@ -8,6 +8,6 @@ public class SaveDocument
 	public int gameLevel = 1;
 	public bool mainVolume = true;
 	public bool sideVolume = true;
-	public int firstUpgrade = 1;
-	public int secondUpgrade = 0;
+	public int ballSpeed = 0;
+	public int ballSize = 0;
 }

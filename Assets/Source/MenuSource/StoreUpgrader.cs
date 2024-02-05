@@ -16,7 +16,7 @@ public class StoreUpgrader : MonoBehaviour
     public void UpgradeFirst()
     {
         SaveSystem.Document.currency -= firstUpgrade.Price;
-        SaveSystem.Document.firstUpgrade++;
+        SaveSystem.Document.ballSpeed++;
         SaveSystem.SetData();
         RefreshAllDependencies();
     }
@@ -24,7 +24,7 @@ public class StoreUpgrader : MonoBehaviour
     public void UpgradeSecond()
     {
         SaveSystem.Document.currency -= secondUpgrade.Price;
-        SaveSystem.Document.secondUpgrade++;
+        SaveSystem.Document.ballSize++;
         SaveSystem.SetData();
         RefreshAllDependencies();
     }

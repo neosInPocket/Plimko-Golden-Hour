@@ -27,15 +27,15 @@ public class UpgraderHolder : MonoBehaviour
 
 		if (upgradeType == Upgrades.First)
 		{
-			pointer = SaveSystem.Document.firstUpgrade;
-			buttonInteractable = SaveSystem.Document.firstUpgrade < 3 && SaveSystem.Document.currency >= price;
-			upgraded = SaveSystem.Document.firstUpgrade >= 3;
+			pointer = SaveSystem.Document.ballSpeed;
+			buttonInteractable = SaveSystem.Document.ballSpeed < 3 && SaveSystem.Document.currency >= price;
+			upgraded = SaveSystem.Document.ballSpeed >= 3;
 		}
 		else
 		{
-			pointer = SaveSystem.Document.secondUpgrade;
-			buttonInteractable = SaveSystem.Document.secondUpgrade < 3 && SaveSystem.Document.currency >= price;
-			upgraded = SaveSystem.Document.secondUpgrade >= 3;
+			pointer = SaveSystem.Document.ballSize;
+			buttonInteractable = SaveSystem.Document.ballSize < 3 && SaveSystem.Document.currency >= price;
+			upgraded = SaveSystem.Document.ballSize >= 3;
 		}
 
 		button.interactable = buttonInteractable;

@@ -5,6 +5,7 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 public class BallShooter : MonoBehaviour
 {
 	[SerializeField] private LineRenderer lineRenderer;
+	[SerializeField] private ShootingBall shootingBall;
 
 	public bool Enabled
 	{
@@ -28,8 +29,9 @@ public class BallShooter : MonoBehaviour
 	}
 
 	private bool isEnabled;
-	private Vector2 lastTapPosition;
-	private Vector2 lastMovePosition;
+	private bool locked;
+	private bool started;
+	private Vector3 zeroPosition;
 
 	private void Start()
 	{
@@ -39,23 +41,45 @@ public class BallShooter : MonoBehaviour
 
 	private void OnFingerDown(Finger finger)
 	{
-		lineRenderer.positionCount = 1;
-		lastTapPosition = LevelExtensions.WorldPoint(finger.screenPosition);
-		lastMovePosition = lastTapPosition;
+		if (locked) return;
+
+		started = true;
+		lineRenderer.positionCount = 2;
+		var lastTapPosition = LevelExtensions.WorldPoint(finger.screenPosition);
+		lineRenderer.transform.position = lastTapPosition;
 		lineRenderer.SetPosition(0, lastTapPosition);
-		lineRenderer.enabled = true;
+		lineRenderer.SetPosition(1, lastTapPosition);
+		zeroPosition = lastTapPosition;
 	}
 
 	private void OnFingerMove(Finger finger)
 	{
-		lineRenderer.positionCount++;
+		if (locked) return;
+		if (!started) return;
+
 		var newMovePosition = LevelExtensions.WorldPoint(finger.screenPosition);
-		lineRenderer.SetPosition(lineRenderer.positionCount - 1, new Vector2(lastMovePosition.x - newMovePosition.x, 0));
+
+		var delta = zeroPosition - newMovePosition;
+		lineRenderer.SetPosition(1, zeroPosition + delta);
 	}
 
 	private void OnFingerUp(Finger finger)
 	{
-		lineRenderer.enabled = false;
+		if (locked) return;
+		if (!started) return;
+
+		locked = true;
+		var firstPosition = lineRenderer.GetPosition(0);
+		var secondPosition = lineRenderer.GetPosition(1);
+
+		shootingBall.Shoot(secondPosition - firstPosition, firstPosition, Unlock);
+		lineRenderer.positionCount = 0;
+	}
+
+	private void Unlock()
+	{
+		locked = false;
+		started = false;
 	}
 
 	private void OnDestroy()

@@ -8,94 +8,81 @@ public class Main : MonoBehaviour
 {
 	[SerializeField] private BallsSpawner spawner;
 	[SerializeField] private BallShooter ballShooter;
-	[SerializeField] private List<Image> energy;
 	[SerializeField] private Image fill;
 	[SerializeField] private int addScore;
-	// [SerializeField] private LevelTime timer;
-	// [SerializeField] private TutorialManager tutorialManagment;
-	// [SerializeField] private CountinueFrame countinueFrame;
-	// [SerializeField] private ResultAction resultShow;
+	[SerializeField] private Tutorial tutorial;
+	[SerializeField] private TapSource tapSource;
+	[SerializeField] private ResultSource resultSource;
 	[SerializeField] private TMP_Text levelHolder;
 	[SerializeField] private TMP_Text fillText;
-	private int goalScore => (int)(2 * Mathf.Log(SaveSystem.Document.gameLevel + 1) + 11);
-	private int reward => (int)(3 * Mathf.Log(SaveSystem.Document.gameLevel + 1) + 3 + SaveSystem.Document.gameLevel);
-	private int currentScore;
+	[SerializeField] private ObjectPool pool;
+	private int goal => (int)(2 * Mathf.Log(SaveSystem.Document.gameLevel + 1) + 2);
+	private int rewardGemns => (int)(3 * Mathf.Log(SaveSystem.Document.gameLevel + 1) + 3 + SaveSystem.Document.gameLevel);
+	private int points;
 
 	private void Start()
 	{
-		spawner.Spawning = true;
-		ballShooter.Enabled = true;
-
-
-		currentScore = 0;
+		points = 0;
 		levelHolder.text = "LEVEL " + SaveSystem.Document.gameLevel.ToString();
 
-		fill.fillAmount = (float)currentScore / (float)goalScore;
-		fillText.text = $"{currentScore}/{goalScore}";
+		fill.fillAmount = (float)points / (float)goal;
+		fillText.text = $"{points}/{goal}";
 
 		if (SaveSystem.Document.needTutor)
 		{
 			SaveSystem.Document.needTutor = false;
 			SaveSystem.SetData();
+
+			tutorial.StartAction(OnTutorialCompleted);
 		}
 		else
 		{
-			TutorialEnd();
+			OnTutorialCompleted();
 		}
 	}
 
-	private void TutorialEnd()
+	private void OnTutorialCompleted()
 	{
-
+		tapSource.StartAction(OnTapCompleted);
 	}
 
-	private void OnTap()
+	public void OnColorMatch(bool value)
 	{
-
-	}
-
-	private void OnTargetHit()
-	{
-		currentScore += addScore;
-
-		if (currentScore >= goalScore)
+		if (value)
 		{
-			currentScore = goalScore;
-			DisableAll();
+			points += addScore;
+			if (points >= goal)
+			{
+				spawner.Spawning = false;
+				ballShooter.Enabled = false;
+				resultSource.StartResultAction(true, rewardGemns);
+				pool.ClearPool();
+
+				fill.fillAmount = (float)points / (float)goal;
+				fillText.text = $"{points}/{goal}";
+
+				SaveSystem.Document.currency += rewardGemns;
+				SaveSystem.Document.gameLevel++;
+				SaveSystem.SetData();
+				return;
+			}
 		}
-
-		fill.fillAmount = (float)currentScore / (float)goalScore;
-		fillText.text = $"{currentScore}/{goalScore}";
-	}
-
-	private void OnTimerEnd()
-	{
-		DisableAll();
-
-	}
-
-	private void OnPlayerTakeDamage(int lifesLeft)
-	{
-		if (lifesLeft == 0)
+		else
 		{
-			DisableAll();
+			spawner.Spawning = false;
+			ballShooter.Enabled = false;
+			resultSource.StartResultAction(false, 0);
+			pool.ClearPool();
 		}
 
-		RefreshEnergyPoints(lifesLeft);
+		fill.fillAmount = (float)points / (float)goal;
+		fillText.text = $"{points}/{goal}";
 	}
 
-	private void RefreshEnergyPoints(int lifes)
+	private void OnTapCompleted()
 	{
-		energy.ForEach(x => x.enabled = false);
-		for (int i = 0; i < lifes; i++)
-		{
-			energy[i].enabled = true;
-		}
-	}
-
-	private void DisableAll()
-	{
-
+		spawner.Spawning = true;
+		ballShooter.Enabled = true;
 	}
 
 	public void Menu()

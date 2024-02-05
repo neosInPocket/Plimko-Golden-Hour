@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BallsSpawner : MonoBehaviour
 {
 	[SerializeField] private ObjectPool pool;
-	[SerializeField] private Vector2 delays;
 	[SerializeField] private float spawnRadius;
 
 	public bool Spawning
@@ -14,32 +11,25 @@ public class BallsSpawner : MonoBehaviour
 		set
 		{
 			m_isSpawning = value;
-			if (!value)
+			if (value)
 			{
-				StopAllCoroutines();
-				m_isBusy = false;
+				Shoot();
 			}
 		}
 	}
 
 	private bool m_isSpawning;
-	private bool m_isBusy;
 
-	private void Update()
+	private void Shoot()
 	{
 		if (!m_isSpawning) return;
-		if (m_isBusy) return;
-
-		m_isBusy = true;
-
-		Vector2 randomPostion = new Vector2(Random.Range(0, spawnRadius), Random.Range(0, spawnRadius));
-		StartCoroutine(Spawn(randomPostion));
+		var movable = pool.Get(Vector2.zero);
+		movable.Destroyed += OnMovableDestroyed;
 	}
 
-	private IEnumerator Spawn(Vector2 position)
+	private void OnMovableDestroyed(MovableBall movableBall)
 	{
-		pool.Get(position);
-		yield return new WaitForSeconds(Random.Range(delays.x, delays.y));
-		m_isBusy = false;
+		movableBall.Destroyed -= OnMovableDestroyed;
+		Shoot();
 	}
 }
