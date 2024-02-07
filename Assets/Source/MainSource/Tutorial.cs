@@ -19,7 +19,7 @@ public class Tutorial : MonoBehaviour
         TutorialCompleted = tutorialCompleted;
         gameObject.SetActive(true);
         Touch.onFingerDown += Play;
-        characterText.text = "WELCOME TO ONE MORE PLINKO!";
+        characterText.text = "WELCOME TO Plimko Golden Hour!";
     }
 
     private void Play(Finger finger)
